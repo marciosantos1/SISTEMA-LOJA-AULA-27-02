@@ -6,8 +6,10 @@
 package br.senai.sc.sisloj;
 
 import br.senai.sc.sisloj.views.CadastroCliente;
+import br.senai.sc.sisloj.views.ListagemCliente;
 import br.senai.sc.sisloj.views.PainelAmarelo;
 import br.senai.sc.sisloj.views.PainelRosa;
+import br.senai.sc.sisloj.views.TelaPadrao;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 
@@ -26,10 +28,17 @@ public class SisLojFrame extends javax.swing.JFrame {
         PainelRosa pRosa = new PainelRosa();
         PainelAmarelo pAmarelo = new PainelAmarelo();
         CadastroCliente cadCli = new CadastroCliente();
+        TelaPadrao tp = new TelaPadrao();
+        ListagemCliente lc = new ListagemCliente();
         
         painelPrincipal.add(cadCli, "CadastroCliente");  
         painelPrincipal.add(pRosa, "Painel Rosa");
         painelPrincipal.add(pAmarelo, "Painel Amarelo");
+        painelPrincipal.add(tp, "Tela Padrao");
+        painelPrincipal.add(lc, "Listar Cliente");
+        
+        CardLayout cl = (CardLayout) painelPrincipal.getLayout();
+        cl.show(painelPrincipal, "Tela Padrao");
         
         this.setExtendedState(MAXIMIZED_BOTH);// inicia a tela maximizada.
         
@@ -149,7 +158,8 @@ public class SisLojFrame extends javax.swing.JFrame {
 
     private void listarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarClienteActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "teste com atalho 2....");
+         CardLayout lc = (CardLayout) painelPrincipal.getLayout();
+        lc.show(painelPrincipal, "Listar Cliente");
     }//GEN-LAST:event_listarClienteActionPerformed
 
     private void painelRosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_painelRosaActionPerformed
