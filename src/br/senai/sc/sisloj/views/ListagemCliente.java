@@ -23,13 +23,14 @@ import javax.swing.table.DefaultTableModel;
 public class ListagemCliente extends javax.swing.JPanel {
 
     private CardLayout cl;
-   
+    private int codcli;
+
     public ListagemCliente() {
         initComponents();
-      this.add(painelListagem, "painelListagem");
-      this.add(painelEdicao, "painelEdicao");
-      
-      this.cl = (CardLayout) this.getLayout();
+        this.add(painelListagem, "painelListagem");
+        this.add(painelEdicao, "painelEdicao");
+
+        this.cl = (CardLayout) this.getLayout();
         this.cl.show(this, "painelListagem");
 
     }
@@ -40,7 +41,7 @@ public class ListagemCliente extends javax.swing.JPanel {
         try {
 
             listaCliente = cli.listarClientes();
-            
+
             DefaultTableModel model = (DefaultTableModel) tblCliente.getModel();
             List<Object> lista = new ArrayList<Object>();// cria um objeto "lista" que é uma Arraylist
 
@@ -52,7 +53,6 @@ public class ListagemCliente extends javax.swing.JPanel {
             for (int idx = 0; idx < lista.size(); idx++) {
                 model.addRow((Object[]) lista.get(idx));
             }
-            
 
         } catch (SQLException ex) {
             String msg = "Ocorreu um erro ao obter os clientes do banco de dados";
@@ -60,6 +60,11 @@ public class ListagemCliente extends javax.swing.JPanel {
             Logger.getLogger(ListagemCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private void limparTabela() {
+        ((DefaultTableModel) tblCliente.getModel()).setNumRows(0);
+        tblCliente.updateUI();
     }
 
     /**
@@ -71,12 +76,9 @@ public class ListagemCliente extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painelListagem = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblCliente = new javax.swing.JTable();
         painelEdicao = new javax.swing.JPanel();
         jLabelNome = new javax.swing.JLabel();
-        jLabelCadastroCliente = new javax.swing.JLabel();
+        jLabelCadastroClienteEdicao = new javax.swing.JLabel();
         cpNome = new javax.swing.JTextField();
         jLabelEndereco = new javax.swing.JLabel();
         cpEndereco = new javax.swing.JTextField();
@@ -95,73 +97,18 @@ public class ListagemCliente extends javax.swing.JPanel {
         jLabelCelular = new javax.swing.JLabel();
         cpformatadoCelular = new javax.swing.JFormattedTextField();
         botaoSalvar = new javax.swing.JButton();
+        botaoApagarCadastro = new javax.swing.JButton();
+        painelListagem = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCliente = new javax.swing.JTable();
 
         setLayout(new java.awt.CardLayout());
-
-        painelListagem.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                painelListagemComponentShown(evt);
-            }
-        });
-
-        tblCliente.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Nome", "Endereço", "Bairro", "Complemento", "Cep", "Celular"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblClienteMouseClicked(evt);
-            }
-        });
-        tblCliente.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                tblClienteComponentShown(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblCliente);
-
-        javax.swing.GroupLayout painelListagemLayout = new javax.swing.GroupLayout(painelListagem);
-        painelListagem.setLayout(painelListagemLayout);
-        painelListagemLayout.setHorizontalGroup(
-            painelListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelListagemLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        painelListagemLayout.setVerticalGroup(
-            painelListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelListagemLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        add(painelListagem, "card3");
 
         jLabelNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelNome.setText("Nome :");
 
-        jLabelCadastroCliente.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabelCadastroCliente.setText("Cadastro de Cliente ");
+        jLabelCadastroClienteEdicao.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelCadastroClienteEdicao.setText("Cadastro de Cliente  (Edição)");
 
         cpNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,6 +164,14 @@ public class ListagemCliente extends javax.swing.JPanel {
             }
         });
 
+        botaoApagarCadastro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        botaoApagarCadastro.setText("Apagar Cadastro");
+        botaoApagarCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoApagarCadastroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelEdicaoLayout = new javax.swing.GroupLayout(painelEdicao);
         painelEdicao.setLayout(painelEdicaoLayout);
         painelEdicaoLayout.setHorizontalGroup(
@@ -229,7 +184,7 @@ public class ListagemCliente extends javax.swing.JPanel {
                             .addGroup(painelEdicaoLayout.createSequentialGroup()
                                 .addComponent(jLabelCelular)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cpformatadoCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cpformatadoCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabelContato)
                             .addGroup(painelEdicaoLayout.createSequentialGroup()
                                 .addComponent(jLabelComplemento)
@@ -239,8 +194,7 @@ public class ListagemCliente extends javax.swing.JPanel {
                             .addGroup(painelEdicaoLayout.createSequentialGroup()
                                 .addComponent(jLabelNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cpNome, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabelCadastroCliente)
+                                .addComponent(cpNome, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator5)
                             .addComponent(jSeparator1)
                             .addComponent(jSeparator2)
@@ -251,23 +205,28 @@ public class ListagemCliente extends javax.swing.JPanel {
                                     .addComponent(jLabelBairro))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(painelEdicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelEdicaoLayout.createSequentialGroup()
+                                    .addGroup(painelEdicaoLayout.createSequentialGroup()
+                                        .addComponent(cpEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(painelEdicaoLayout.createSequentialGroup()
                                         .addComponent(cpBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabelCep)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cpformatadoCep, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(cpEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(cpformatadoCep, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabelCadastroClienteEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelEdicaoLayout.createSequentialGroup()
                         .addGap(228, 228, 228)
-                        .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(botaoApagarCadastro)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         painelEdicaoLayout.setVerticalGroup(
             painelEdicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEdicaoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelCadastroCliente)
+                .addComponent(jLabelCadastroClienteEdicao)
                 .addGap(3, 3, 3)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -296,18 +255,77 @@ public class ListagemCliente extends javax.swing.JPanel {
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelContato)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(17, 17, 17)
                 .addGroup(painelEdicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCelular)
-                    .addComponent(cpformatadoCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cpformatadoCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoSalvar)
+                .addGap(63, 63, 63)
+                .addGroup(painelEdicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoSalvar)
+                    .addComponent(botaoApagarCadastro))
                 .addContainerGap())
         );
 
         add(painelEdicao, "card4");
+
+        painelListagem.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                painelListagemComponentShown(evt);
+            }
+        });
+
+        tblCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome", "Endereço", "Bairro", "Complemento", "Cep", "Celular"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClienteMouseClicked(evt);
+            }
+        });
+        tblCliente.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                tblClienteComponentShown(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblCliente);
+
+        javax.swing.GroupLayout painelListagemLayout = new javax.swing.GroupLayout(painelListagem);
+        painelListagem.setLayout(painelListagemLayout);
+        painelListagemLayout.setHorizontalGroup(
+            painelListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+        );
+        painelListagemLayout.setVerticalGroup(
+            painelListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelListagemLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(195, Short.MAX_VALUE))
+        );
+
+        add(painelListagem, "card3");
     }// </editor-fold>//GEN-END:initComponents
 
     private void cpNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpNomeActionPerformed
@@ -337,13 +355,15 @@ public class ListagemCliente extends javax.swing.JPanel {
 
         cli.setCelcli(Long.parseLong(celular));
 
+        cli.setCodcli(this.codcli);
+
         //inseri o cliente no banco de dados.
         ClienteDao cliDao = new ClienteDao();
         try {
-            cliDao.inserir(cli);
-            JOptionPane.showMessageDialog(null, "CLIENTE INSERIDO COM SUCESSO!!!");
+            cliDao.alterar(cli);
+            JOptionPane.showMessageDialog(null, "CADASTRO ATUALIZADO COM SUCESSO!!!");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "FALHA AO INSERIR CLIENTE !!!");
+            JOptionPane.showMessageDialog(null, "FALHA AO ATUALIZAR CADASTRO !!!");
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -354,15 +374,63 @@ public class ListagemCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_painelListagemComponentShown
 
     private void tblClienteComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tblClienteComponentShown
-      JOptionPane.showMessageDialog(null, jLabelCadastroCliente);
+        JOptionPane.showMessageDialog(null, jLabelCadastroClienteEdicao);
     }//GEN-LAST:event_tblClienteComponentShown
 
+    private void preencherFormulario(int codigoCliente) {
+
+        try {
+            ClienteDao cli = new ClienteDao();
+
+            Cliente cliente = cli.getCliente(codigoCliente);
+            cpNome.setText(cliente.getNomcli());
+            cpEndereco.setText(cliente.getEndcli());
+            cpBairro.setText(cliente.getBaicli());
+            cpformatadoCep.setText("" + cliente.getCepcli());
+            cpformatadoCelular.setText("" + cliente.getCelcli());
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ListagemCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.codcli = codigoCliente;
+    }
+
+
     private void tblClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteMouseClicked
-       JOptionPane.showMessageDialog(null, "Você clicou na linha: ");
+        int linha = tblCliente.getSelectedRow();
+
+        if (linha != -1) {
+            String codigo = tblCliente.getValueAt(linha, 0).toString();
+            int codigoCliente = Integer.parseInt(codigo);
+            this.preencherFormulario(codigoCliente);
+            this.cl.show(this, "painelEdicao");
+
+        }
+
+
     }//GEN-LAST:event_tblClienteMouseClicked
+
+    private void botaoApagarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoApagarCadastroActionPerformed
+        // TODO add your handling code here:
+        Object[] options = {"Sim", "Não"};
+        int opcaoSelecionada = JOptionPane.showOptionDialog(null, "Deseja realmente eliminar este cliente ?", "Atenção!", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+
+        if (opcaoSelecionada == 0) {
+            try {
+                ClienteDao cliDao = new ClienteDao();
+                cliDao.eliminar(this.codcli);
+                this.limparTabela();
+               
+                this.cl.show(this,"painelListagem");
+            } catch (SQLException ex) {
+                Logger.getLogger(ListagemCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_botaoApagarCadastroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoApagarCadastro;
     private javax.swing.JButton botaoSalvar;
     private javax.swing.JTextField cpBairro;
     private javax.swing.JTextField cpComplemento;
@@ -372,7 +440,7 @@ public class ListagemCliente extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField cpformatadoCep;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelBairro;
-    private javax.swing.JLabel jLabelCadastroCliente;
+    private javax.swing.JLabel jLabelCadastroClienteEdicao;
     private javax.swing.JLabel jLabelCelular;
     private javax.swing.JLabel jLabelCep;
     private javax.swing.JLabel jLabelComplemento;

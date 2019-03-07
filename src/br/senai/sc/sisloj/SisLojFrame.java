@@ -29,13 +29,13 @@ public class SisLojFrame extends javax.swing.JFrame {
         PainelAmarelo pAmarelo = new PainelAmarelo();
         CadastroCliente cadCli = new CadastroCliente();
         TelaPadrao tp = new TelaPadrao();
-        ListagemCliente lc = new ListagemCliente();
+       
         
         painelPrincipal.add(cadCli, "CadastroCliente");  
         painelPrincipal.add(pRosa, "Painel Rosa");
         painelPrincipal.add(pAmarelo, "Painel Amarelo");
         painelPrincipal.add(tp, "Tela Padrao");
-        painelPrincipal.add(lc, "Listar Cliente");
+        
         
         CardLayout cl = (CardLayout) painelPrincipal.getLayout();
         cl.show(painelPrincipal, "Tela Padrao");
@@ -158,8 +158,11 @@ public class SisLojFrame extends javax.swing.JFrame {
 
     private void listarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarClienteActionPerformed
         // TODO add your handling code here:
-         CardLayout lc = (CardLayout) painelPrincipal.getLayout();
-        lc.show(painelPrincipal, "Listar Cliente");
+         ListagemCliente lc = new ListagemCliente();
+      painelPrincipal.add(lc, "Listar Cliente");
+      
+      CardLayout cl = (CardLayout) painelPrincipal.getLayout();
+        cl.show(painelPrincipal, "Listar Cliente");
     }//GEN-LAST:event_listarClienteActionPerformed
 
     private void painelRosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_painelRosaActionPerformed

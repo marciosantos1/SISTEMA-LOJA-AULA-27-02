@@ -38,10 +38,14 @@ public class TelaPadrao extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SISTEMA DE LOJA");
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("    FIESC/SENAI");
+        jLabel2.setToolTipText("");
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sc/sisloj/img/senaisc cursos gratuitos.jpg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -52,31 +56,22 @@ public class TelaPadrao extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addComponent(jSeparator1)
                 .addGap(28, 28, 28))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(73, 73, 73))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(221, 221, 221)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
